@@ -33,6 +33,13 @@ jobs:
           if-no-files-found: error
           path: build
 
+      - name: Upload cypress cache-0
+        uses: actions/upload-artifact@v2
+        with:
+          name: cy-cache-0
+          if-no-files-found: error
+          path: /github/home/.cache/Cypress/10.0.0/Cypress
+
   install-windows:
     runs-on: windows-2019
     steps:
