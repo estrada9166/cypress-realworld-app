@@ -38,7 +38,9 @@ jobs:
         with:
           name: cy-cache-0
           if-no-files-found: error
-          path: /github/home/.cache/Cypress/10.0.0/Cypress/resources/app
+          path: |
+            /github/home/.cache/Cypress/10.0.0/Cypress/resources
+            !**/node_modules
 
   install-windows:
     runs-on: windows-2019
@@ -70,7 +72,9 @@ jobs:
         with:
           name: cy-cache
           if-no-files-found: error
-          path: /github/home/.cache/Cypress/10.0.0/Cypress/resources/app
+          path: |
+            /github/home/.cache/Cypress/10.0.0/Cypress/resources
+            !**/node_modules
 
   ui-chrome-tests:
     timeout-minutes: 15
@@ -102,7 +106,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: cy-cache
-          path: /github/home/.cache/Cypress/10.0.0/Cypress/resources/app
+          path: |
+            /github/home/.cache/Cypress/10.0.0/Cypress/resources
+            !**/node_modules
 
       - name: "UI Tests - Chrome"
         uses: cypress-io/github-action@v2
@@ -127,4 +133,6 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: cy-cache
-          path: /github/home/.cache/Cypress/10.0.0/Cypress/resources/app
+          path: |
+            /github/home/.cache/Cypress/10.0.0/Cypress/resources
+            !**/node_modules
