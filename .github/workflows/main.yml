@@ -104,7 +104,7 @@ jobs:
           parallel: true
           group: "UI - Chrome"
           spec: cypress/tests/ui/*
-          config-file: cypress.config.js
+          # config-file: cypress.config.js
           DEBUG: cypress:*
         env:
           DEBUG: cypress:*
