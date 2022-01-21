@@ -1,10 +1,11 @@
-const path = require("path");
-const _ = require("lodash");
-const axios = require("axios");
-const dotenv = require("dotenv");
-const Promise = require("bluebird");
-const { percyHealthCheck } = require("@percy/cypress/task");
-const codeCoverageTask = require("@cypress/code-coverage/task");
+import path from "path";
+import _ from "lodash";
+import axios from "axios";
+import dotenv from "dotenv";
+import Promise from "bluebird";
+import { percyHealthCheck } from "@percy/cypress/task";
+import codeCoverageTask from "@cypress/code-coverage/task";
+import { defineConfig } from "cypress";
 // const { devServer } = require("@cypress/react/plugins/react-scripts");
 
 dotenv.config({ path: ".env.local" });
@@ -12,7 +13,7 @@ dotenv.config();
 
 const awsConfig = require(path.join(__dirname, "./aws-exports-es5.js"));
 
-module.exports = {
+module.exports = defineConfig({
   baseUrl: "http://localhost:3000",
   projectId: "7s5okt",
   integrationFolder: "cypress/tests",
@@ -95,4 +96,4 @@ module.exports = {
       return config;
     },
   },
-};
+});
