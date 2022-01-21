@@ -79,6 +79,7 @@ jobs:
       matrix:
         # run copies of the current job in parallel
         containers: [1]
+        node: [14]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -92,7 +93,7 @@ jobs:
       - name: "UI Tests - Chrome"
         uses: cypress-io/github-action@v2
         with:
-          start: npm run start:ci
+          start: yarn start:ci
           wait-on: "http://localhost:3000"
           wait-on-timeout: 120
           browser: chrome
@@ -100,7 +101,7 @@ jobs:
           parallel: true
           group: "UI - Chrome"
           spec: cypress/tests/ui/*
-          # config-file: cypress.config.js
+          config-file: cypress.config.js
         env:
           DEBUG: "cypress:*"
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
