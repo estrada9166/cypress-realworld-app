@@ -67,15 +67,6 @@ jobs:
           if-no-files-found: error
           path: build
 
-      - name: Upload cypress cache
-        uses: actions/upload-artifact@v2
-        with:
-          name: cy-cache
-          if-no-files-found: error
-          path: |
-            /github/home/.cache/Cypress/10.0.0/Cypress/resources
-            !/github/home/.cache/Cypress/10.0.0/Cypress/resources/app/node_modules
-
   ui-chrome-tests:
     timeout-minutes: 15
     runs-on: ubuntu-latest
@@ -102,14 +93,6 @@ jobs:
 
       - run : node -v
 
-      - name: Upload cypress cache - 2
-        uses: actions/upload-artifact@v2
-        with:
-          name: cy-cache
-          path: |
-            /github/home/.cache/Cypress/10.0.0/Cypress/resources
-            !/github/home/.cache/Cypress/10.0.0/Cypress/resources/app/node_modules
-
       - name: "UI Tests - Chrome"
         uses: cypress-io/github-action@v2
         with:
@@ -122,17 +105,12 @@ jobs:
           group: "UI - Chrome"
           spec: cypress/tests/ui/*
           config-file: cypress.config.js
+          DEBUG: cypress:*
         env:
+          DEBUG: cypress:*
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload cypress cache - 3
-        uses: actions/upload-artifact@v2
-        with:
-          name: cy-cache
-          path: |
-            /github/home/.cache/Cypress/10.0.0/Cypress/resources
-            !/github/home/.cache/Cypress/10.0.0/Cypress/resources/app/node_modules
