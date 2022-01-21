@@ -67,9 +67,9 @@ jobs:
 
       - name: Set node v
         uses: actions/setup-node@v2
-          with:
-            node-version: '14'
-            cache: 'npm'
+        with:
+          node-version: "14"
+          cache: "npm"
 
       - name: "UI Tests - Chrome"
         uses: cypress-io/github-action@v2
