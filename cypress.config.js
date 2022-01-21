@@ -1,4 +1,8 @@
-module.exports = {};
+module.exports = {
+  e2e: {
+    supportFile: "cypress/support/e2e.ts",
+  },
+};
 // const path = require("path");
 // const _ = require("lodash");
 // const axios = require("axios");
