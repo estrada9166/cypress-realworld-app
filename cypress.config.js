@@ -1,16 +1,17 @@
+const path = require("path");
+const _ = require("lodash");
+const axios = require("axios");
+const dotenv = require("dotenv");
+const Promise = require("bluebird");
+const { percyHealthCheck } = require("@percy/cypress/task");
+const codeCoverageTask = require("@cypress/code-coverage/task");
+const { devServer } = require("@cypress/react/plugins/react-scripts");
+
 module.exports = {
   e2e: {
     supportFile: "cypress/support/e2e.ts",
   },
 };
-// const path = require("path");
-// const _ = require("lodash");
-// const axios = require("axios");
-// const dotenv = require("dotenv");
-// const Promise = require("bluebird");
-// const { percyHealthCheck } = require("@percy/cypress/task");
-// const codeCoverageTask = require("@cypress/code-coverage/task");
-// const { devServer } = require("@cypress/react/plugins/react-scripts");
 
 // dotenv.config({ path: ".env.local" });
 // dotenv.config();
