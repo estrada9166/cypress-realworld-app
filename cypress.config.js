@@ -11,7 +11,7 @@ const { devServer } = require("@cypress/react/plugins/react-scripts");
 dotenv.config({ path: ".env.local" });
 dotenv.config();
 
-const awsConfig = require(path.join(__dirname, "./aws-exports-es5.js"));
+// const awsConfig = require(path.join(__dirname, "./aws-exports-es5.js"));
 
 module.exports = defineConfig({
   baseUrl: "http://localhost:3000",
@@ -46,7 +46,7 @@ module.exports = defineConfig({
     // Amazon Cognito
     cognito_username: process.env.AWS_COGNITO_USERNAME,
     cognito_password: process.env.AWS_COGNITO_PASSWORD,
-    awsConfig: awsConfig.default,
+    // awsConfig: awsConfig.default,
 
     // Google
     googleRefreshToken: process.env.GOOGLE_REFRESH_TOKEN,
@@ -64,35 +64,35 @@ module.exports = defineConfig({
     viewportHeight: 1000,
     viewportWidth: 1280,
     setupNodeEvents(on, config) {
-      // const testDataApiEndpoint = `${config.env.apiUrl}/testData`;
+      const testDataApiEndpoint = `${config.env.apiUrl}/testData`;
 
-      // const queryDatabase = ({ entity, query }, callback) => {
-      //   const fetchData = async (attrs) => {
-      //     const { data } = await axios.get(`${testDataApiEndpoint}/${entity}`);
-      //     return callback(data, attrs);
-      //   };
+      const queryDatabase = ({ entity, query }, callback) => {
+        const fetchData = async (attrs) => {
+          const { data } = await axios.get(`${testDataApiEndpoint}/${entity}`);
+          return callback(data, attrs);
+        };
 
-      //   return Array.isArray(query) ? Promise.map(query, fetchData) : fetchData(query);
-      // };
+        return Array.isArray(query) ? Promise.map(query, fetchData) : fetchData(query);
+      };
 
-      // on("task", {
-      //   percyHealthCheck,
-      //   async "db:seed"() {
-      //     // seed database with test data
-      //     const { data } = await axios.post(`${testDataApiEndpoint}/seed`);
-      //     return data;
-      //   },
+      on("task", {
+        percyHealthCheck,
+        async "db:seed"() {
+          // seed database with test data
+          const { data } = await axios.post(`${testDataApiEndpoint}/seed`);
+          return data;
+        },
 
-      //   // fetch test data from a database (MySQL, PostgreSQL, etc...)
-      //   "filter:database"(queryPayload) {
-      //     return queryDatabase(queryPayload, (data, attrs) => _.filter(data.results, attrs));
-      //   },
-      //   "find:database"(queryPayload) {
-      //     return queryDatabase(queryPayload, (data, attrs) => _.find(data.results, attrs));
-      //   },
-      // });
+        // fetch test data from a database (MySQL, PostgreSQL, etc...)
+        "filter:database"(queryPayload) {
+          return queryDatabase(queryPayload, (data, attrs) => _.filter(data.results, attrs));
+        },
+        "find:database"(queryPayload) {
+          return queryDatabase(queryPayload, (data, attrs) => _.find(data.results, attrs));
+        },
+      });
 
-      // codeCoverageTask(on, config);
+      codeCoverageTask(on, config);
       return config;
     },
   },
