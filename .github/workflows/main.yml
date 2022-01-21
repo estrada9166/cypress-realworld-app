@@ -8,7 +8,7 @@ on:
 jobs:
   install:
     runs-on: ubuntu-latest
-    container: cypress/browsers:node14.16.0-chrome89-ff77
+    container: cypress/browsers:node14.17.0-chrome88-ff89
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -24,7 +24,6 @@ jobs:
       - run: yarn lint
       - run: yarn test:unit:ci
       - run: yarn build:ci
-      - run : node -v
 
       - name: Save build folder
         uses: actions/upload-artifact@v2
@@ -40,7 +39,6 @@ jobs:
       #     if-no-files-found: error
       #     path: |
       #       /github/home/.cache/Cypress/10.0.0/Cypress/resources
-      #       !/github/home/.cache/Cypress/10.0.0/Cypress/resources/app/node_modules
 
   install-windows:
     runs-on: windows-2019
@@ -91,12 +89,10 @@ jobs:
           name: build
           path: build
 
-      - run : node -v
-
       - name: "UI Tests - Chrome"
         uses: cypress-io/github-action@v2
         with:
-          start: yarn start:ci
+          start: npm run start:ci
           wait-on: "http://localhost:3000"
           wait-on-timeout: 120
           browser: chrome
@@ -105,12 +101,10 @@ jobs:
           group: "UI - Chrome"
           spec: cypress/tests/ui/*
           # config-file: cypress.config.js
-          DEBUG: cypress:*
         env:
-          DEBUG: cypress:*
+          DEBUG: "cypress:*"
           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
